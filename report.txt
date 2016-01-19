@@ -1,0 +1,33 @@
+
+Algorithm:
+Firstly, read file and create Laptops object for obtain x,y coordinates and radius.
+Then,we make a loop that find laptops each other intersect or not.
+After that,create edges and vertices using this loop.In order to create graph,generate four classes(AbstractGraph,Graph,WeightedEdge,WeightedGraph).
+Secondly,create a method(getShotestPath()) in WeightedGraph class that calculates shortest paths from first laptop to the other laptops.
+In order to find shortest path from vertex u  to vertex v ,Dijikstra’s algorithm finds shortest path from u to all vertices.
+So Dijikstra algorithm is known as a single-source shortest path algorithm. I used this algorithm in my code.
+The algorithm uses cost[v] to store the cost of the shortest path from vertex v to the source vertex s.cost[s] is 0. 
+Initially assign infinity to cost[v] to indicate that no path is found from v to s.Let denote all vertices in the graph and 
+T denote the set of the vertices whose costs are known. Initially ,the source vertex s is in T .
+The algorithm repeatedly finds a vertex u in T and a vertex v in V-T such that cost[u]+w(u+v) is the smallest , and moves v to T.
+Here, w(u,v) denotes the weight on edge (u,v).
+This algorithm is very similar to Prim’s for finding a minimum spanning tree.Both algorithms divide the vertices into two sets: T and V-T .
+To model this graph, define a class named ShortestPathLaptops2 that extends the Laptops2 class. ShortestPathLaptops2 is defined as an inner class in WeightedGraph.
+ The getShortestPath(int sourceVertex) method was implemented 72-109.The method first adds sourceVertex to T line 74. 
+T is a list that stores the vertices whose path have been found (line 73) vertices is defined as a protected data field in the AbstractGraph class ,
+and it is an array that stores all vertices in the graph. Vertices.size() returns the number of the vertices in the graph(line 81).
+The method needs to remove the elements from queues in order to find the one with the smallest total cost .
+To keep the original queues intact ,queues are cloned in line(85)
+A vertex is added to T if it is adjacent to one of the vertices in T with the smallest cost (line 104)
+For each vertex u in T ,find its indicent edge e with the smallest weight to u.
+All the incident edges to u are stored in queues.get(u).queues.get(u).peek() (line 97) return the incident edge with the smallest weight.
+If e.v is already in T ,remove e from queues.get(u) .After that queues.get(u).peek() returns the edge e ,such that e has the smallest weight to u and e.v is not in T.
+Compare all these edges and find the one with the smallest value on cost[u] + e.getWeight()
+After a new vertex added to T(line 104),the cost of this vertex is updated (line105) .Once all vertice are added to T, an instance of ShortestPathTree is created (line 108).
+The ShortestPathLaptops2 class extends the Laptop2 class (line 112).To create an instance of ShortestPathLaptops2,pass sourceVertex,parent,T and cost (line 115). 
+sourceVertex becomes the root in the laptops .The data fields root ,parent and searchOrder are defined in the Laptops2 class,
+which is an inner class defined in AbstractGraph.
+Analysis:
+The time complexity for Dijikstra’s algorithm is O(|E| log|V|) ,where |E| denotes the number of edges and |V| the number of vertices.
+Dijikstra algorithm is a combination of a greedy algorithm and dynamic programming.
+
